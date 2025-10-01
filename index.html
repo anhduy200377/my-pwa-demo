@@ -11,16 +11,17 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #f9a8d4, #fbcfe8);
       font-family: 'Arial', sans-serif;
       text-align: center;
       padding: 20px;
+      background: url('rose.png') no-repeat center center fixed; /* ảnh nền */
+      background-size: cover;
     }
     .letter {
-      background: white;
+      background: rgba(255, 255, 255, 0.85); /* nền trắng mờ */
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       max-width: 400px;
     }
     h2 {
@@ -89,7 +90,7 @@
 
     acceptBtn.addEventListener('click', () => {
       messageBox.textContent = "Cảm ơn em đã tha thứ! Anh hạnh phúc lắm ❤️";
-      buttonsDiv.style.display = "none"; // Ẩn 2 nút khi bấm Chấp nhận
+      buttonsDiv.style.display = "none";
     });
 
     rejectBtn.addEventListener('click', () => {
