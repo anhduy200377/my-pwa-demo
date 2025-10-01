@@ -93,6 +93,7 @@
       "Xin lỗi mòoo... 💔"
     ];
     let index = 0;
+    let size = 1; // kích thước ban đầu
 
     // Khi bấm "Chấp nhận"
     acceptBtn.addEventListener('click', () => {
@@ -100,15 +101,31 @@
       buttonsDiv.style.display = "none";
     });
 
-    // Khi bấm "Không chấp nhận"
-    rejectBtn.addEventListener('click', () => {
-      // Tính toán vị trí ngẫu nhiên trong khung chứa nút
+    // Hàm di chuyển nút "Không chấp nhận"
+    function moveRejectButton() {
       const maxX = buttonsDiv.offsetWidth - rejectBtn.offsetWidth;
       const maxY = buttonsDiv.offsetHeight - rejectBtn.offsetHeight;
       const randomX = Math.floor(Math.random() * maxX);
       const randomY = Math.floor(Math.random() * maxY);
       rejectBtn.style.left = `${randomX}px`;
       rejectBtn.style.top = `${randomY}px`;
+    }
+
+    // Khi hover/chạm → chạy trốn
+    rejectBtn.addEventListener('mouseenter', moveRejectButton);
+    rejectBtn.addEventListener('touchstart', moveRejectButton);
+
+    // Khi click → vừa chạy trốn vừa thu nhỏ dần + hiện text
+    rejectBtn.addEventListener('click', () => {
+      moveRejectButton();
+
+      // Thu nhỏ dần
+      size -= 0.1;
+      if (size > 0.3) {
+        rejectBtn.style.transform = `scale(${size})`;
+      } else {
+        rejectBtn.style.display = "none"; // biến mất nếu quá nhỏ
+      }
 
       // Hiện dần lời năn nỉ
       if (index < phrases.length) {
