@@ -13,7 +13,7 @@
       font-family: 'Arial', sans-serif;
       text-align: center;
       padding: 20px;
-      background: url('rose.png') no-repeat center center fixed; /* ảnh nền */
+      background: url('rose.png') no-repeat center center fixed; /* đổi rose.png thành ảnh PNG/JPG bạn có */
       background-size: cover;
     }
     .letter {
@@ -22,7 +22,7 @@
       border-radius: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       max-width: 400px;
-      position: relative; /* để nút có thể di chuyển trong khung */
+      position: relative;
       overflow: hidden;
     }
     h2 {
@@ -35,17 +35,16 @@
     .buttons {
       margin-top: 20px;
       position: relative;
-      height: 100px; /* vùng chứa nút */
+      height: 120px; /* vùng chứa nút */
     }
     button {
       padding: 12px 20px;
-      margin: 10px;
       font-size: 16px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      position: absolute; /* để có thể thay đổi vị trí */
+      position: absolute;
     }
     .accept {
       background: #22c55e;
@@ -103,7 +102,7 @@
 
     // Khi bấm "Không chấp nhận"
     rejectBtn.addEventListener('click', () => {
-      // Di chuyển nút sang vị trí ngẫu nhiên
+      // Tính toán vị trí ngẫu nhiên trong khung chứa nút
       const maxX = buttonsDiv.offsetWidth - rejectBtn.offsetWidth;
       const maxY = buttonsDiv.offsetHeight - rejectBtn.offsetHeight;
       const randomX = Math.floor(Math.random() * maxX);
@@ -111,7 +110,7 @@
       rejectBtn.style.left = `${randomX}px`;
       rejectBtn.style.top = `${randomY}px`;
 
-      // Hiện lời nhắn dỗ dành
+      // Hiện dần lời năn nỉ
       if (index < phrases.length) {
         let p = document.createElement("p");
         p.textContent = phrases[index];
