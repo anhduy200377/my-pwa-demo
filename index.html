@@ -74,6 +74,7 @@
   <script>
     const acceptBtn = document.querySelector('.accept');
     const rejectBtn = document.querySelector('.reject');
+    const buttonsDiv = document.querySelector('.buttons');
     const messageBox = document.querySelector('.message');
 
     let rejectSize = 1;
@@ -88,6 +89,7 @@
 
     acceptBtn.addEventListener('click', () => {
       messageBox.textContent = "Cảm ơn em đã tha thứ! Anh hạnh phúc lắm ❤️";
+      buttonsDiv.style.display = "none"; // Ẩn 2 nút khi bấm Chấp nhận
     });
 
     rejectBtn.addEventListener('click', () => {
