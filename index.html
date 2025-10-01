@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Giao diện PWA</title>
+
+  <!-- Khai báo PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f1724">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #071226;
+      color: #e6eef6;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    input, textarea, select, button {
+      width: 100%; margin-top: 8px;
+      padding: 10px; border-radius: 8px;
+      border: none; font-size: 15px;
+    }
+    button { background: #06b6d4; color: #042028; font-weight: bold; }
+    .result { margin-top: 12px; font-size: 14px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <h1>Ứng dụng PWA demo</h1>
+  <div class="card">
+    <input id="name" type="text" placeholder="Tên của bạn...">
+    <select id="mood">
+      <option value="happy">Vui vẻ 🙂</option>
+      <option value="neutral">Bình thường 😐</option>
+      <option value="sad">Buồn 🙁</option>
+    </select>
+    <textarea id="note" placeholder="Ghi chú..."></textarea>
+    <button id="greetBtn">Gửi lời chào</button>
+    <div id="result" class="result">Chưa có tương tác.</div>
+  </div>
+
+  <script>
+    const nameInput = document.getElementById('name');
+    const mood = document.getElementById('mood');
+    const note = document.getElementById('note');
+    const result = document.getElementById('result');
+    document.getElementById('greetBtn').onclick = () => {
+      const n = nameInput.value.trim() || 'Bạn';
+      const emoji = mood.value === 'happy' ? '😊' : mood.value === 'sad' ? '😢' : '😐';
+      result.textContent = `${emoji} Xin chào ${n}! Bạn ghi: "${note.value || '—'}"`;
+    };
+    // Đăng ký service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
