@@ -35,18 +35,7 @@
     }
     .buttons {
       margin-top: 20px;
-      height: 60px;
-      position: relative;
     }
-	.buttons-area {
-    position: relative;
-    width: 100%;
-    height: 120px; /* vùng trắng mờ chứa 2 nút */
-    margin-top: 20px;
-    background: rgba(255,255,255,0.5); /* nền trắng mờ */
-    border-radius: 12px;
-    overflow: hidden;
-	}
     button {
     padding: 12px 20px;
     font-size: 16px;
@@ -57,18 +46,17 @@
     transition: all 0.3s ease, left 0.5s ease, top 0.5s ease; /* thêm animate mượt */
 	}
     .accept {
-    background: #22c55e;
-    color: white;
-    left: 20px;
-    bottom: 20px;
-	}
-
-	.reject {
-	background: #ef4444;
-	color: white;
-	right: 20px;
-	bottom: 20px;
-	}
+      background: #22c55e;
+      color: white;
+      left: 20px;
+      bottom: 20px;
+    }
+    .reject {
+      background: #ef4444;
+      color: white;
+      right: 20px;
+      bottom: 20px;
+    }
     .message {
       margin-top: 20px;
       font-weight: bold;
@@ -82,14 +70,9 @@
     <p>Anh biết cách nói chuyện của mình lại làm em khó chịu ùiiii.  
     Mong người đẹp rộng lượng tha thứ cho sự vụng về của anh...</p>
 
-    <div class="buttons">
-      <button class="accept">Chấp nhận</button>
-      <button class="reject">Không chấp nhận</button>
-    </div>
-	<div class="buttons-area">
-	  <button class="accept">Chấp nhận</button>
-	  <button class="reject">Không chấp nhận</button>
-	</div>
+    <button class="accept">Chấp nhận</button>
+    <button class="reject">Không chấp nhận</button>
+
     <div class="message"></div>
   </div>
 
