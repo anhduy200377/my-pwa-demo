@@ -17,3 +17,15 @@ self.addEventListener("fetch", e => {
     caches.match(e.request).then(response => response || fetch(e.request))
   );
 });
+
+window.onload = () => {
+  const rect = rejectBtn.getBoundingClientRect();
+  const parentRect = letterBox.getBoundingClientRect();
+
+  rejectBtn.style.left = (rect.left - parentRect.left) + "px";
+  rejectBtn.style.top = (rect.top - parentRect.top) + "px";
+
+  // xóa right/bottom để không xung đột
+  rejectBtn.style.right = "auto";
+  rejectBtn.style.bottom = "auto";
+};
