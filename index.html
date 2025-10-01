@@ -7,7 +7,6 @@
   <style>
     body {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -18,11 +17,13 @@
       background-size: cover;
     }
     .letter {
-      background: rgba(255, 255, 255, 0.85); /* nền trắng mờ */
+      background: rgba(255, 255, 255, 0.85);
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       max-width: 400px;
+      position: relative; /* để nút có thể di chuyển trong khung */
+      overflow: hidden;
     }
     h2 {
       color: #db2777;
@@ -33,6 +34,8 @@
     }
     .buttons {
       margin-top: 20px;
+      position: relative;
+      height: 100px; /* vùng chứa nút */
     }
     button {
       padding: 12px 20px;
@@ -42,14 +45,19 @@
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: absolute; /* để có thể thay đổi vị trí */
     }
     .accept {
       background: #22c55e;
       color: white;
+      left: 20px;
+      bottom: 10px;
     }
     .reject {
       background: #ef4444;
       color: white;
+      right: 20px;
+      bottom: 10px;
     }
     .message {
       margin-top: 20px;
@@ -78,7 +86,6 @@
     const buttonsDiv = document.querySelector('.buttons');
     const messageBox = document.querySelector('.message');
 
-    let rejectSize = 1;
     let phrases = [
       "Em hổng bỏ qua thiệt hả? 😢",
       "Bỏ qua cho anh mà...",
@@ -88,16 +95,23 @@
     ];
     let index = 0;
 
+    // Khi bấm "Chấp nhận"
     acceptBtn.addEventListener('click', () => {
       messageBox.textContent = "Cảm ơn eiu đã tha thứ! hẹ hẹ ❤️";
       buttonsDiv.style.display = "none";
     });
 
+    // Khi bấm "Không chấp nhận"
     rejectBtn.addEventListener('click', () => {
-      if (rejectSize > 0.3) {
-        rejectSize -= 0.1;
-        rejectBtn.style.transform = `scale(${rejectSize})`;
-      }
+      // Di chuyển nút sang vị trí ngẫu nhiên
+      const maxX = buttonsDiv.offsetWidth - rejectBtn.offsetWidth;
+      const maxY = buttonsDiv.offsetHeight - rejectBtn.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      rejectBtn.style.left = `${randomX}px`;
+      rejectBtn.style.top = `${randomY}px`;
+
+      // Hiện lời nhắn dỗ dành
       if (index < phrases.length) {
         let p = document.createElement("p");
         p.textContent = phrases[index];
