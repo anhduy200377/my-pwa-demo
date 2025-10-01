@@ -1,65 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Giao diện PWA</title>
-
-  <!-- Khai báo PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0f1724">
-  <link rel="apple-touch-icon" href="icon.png">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lá thư xin lỗi</title>
   <style>
     body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #071226;
-      color: #e6eef6;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f9a8d4, #fbcfe8);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
       padding: 20px;
     }
-    .card {
-      background: rgba(255,255,255,0.05);
+    .letter {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      max-width: 400px;
+    }
+    h2 {
+      color: #db2777;
+    }
+    p {
+      margin: 15px 0;
+      color: #444;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
       border-radius: 12px;
-      padding: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    input, textarea, select, button {
-      width: 100%; margin-top: 8px;
-      padding: 10px; border-radius: 8px;
-      border: none; font-size: 15px;
+    .accept {
+      background: #22c55e;
+      color: white;
     }
-    button { background: #06b6d4; color: #042028; font-weight: bold; }
-    .result { margin-top: 12px; font-size: 14px; color: #94a3b8; }
+    .reject {
+      background: #ef4444;
+      color: white;
+    }
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #db2777;
+    }
   </style>
 </head>
 <body>
-  <h1>Ứng dụng PWA demo</h1>
-  <div class="card">
-    <input id="name" type="text" placeholder="Tên của bạn...">
-    <select id="mood">
-      <option value="happy">Vui vẻ 🙂</option>
-      <option value="neutral">Bình thường 😐</option>
-      <option value="sad">Buồn 🙁</option>
-    </select>
-    <textarea id="note" placeholder="Ghi chú..."></textarea>
-    <button id="greetBtn">Gửi lời chào</button>
-    <div id="result" class="result">Chưa có tương tác.</div>
+  <div class="letter">
+    <h2>Xin lỗi em ❤️</h2>
+    <p>Anh biết mình đã làm em buồn.  
+    Anh thật sự hối hận và muốn được em tha thứ...</p>
+
+    <div class="buttons">
+      <button class="accept">Chấp nhận</button>
+      <button class="reject">Không chấp nhận</button>
+    </div>
+
+    <div class="message"></div>
   </div>
 
   <script>
-    const nameInput = document.getElementById('name');
-    const mood = document.getElementById('mood');
-    const note = document.getElementById('note');
-    const result = document.getElementById('result');
-    document.getElementById('greetBtn').onclick = () => {
-      const n = nameInput.value.trim() || 'Bạn';
-      const emoji = mood.value === 'happy' ? '😊' : mood.value === 'sad' ? '😢' : '😐';
-      result.textContent = `${emoji} Xin chào ${n}! Bạn ghi: "${note.value || '—'}"`;
-    };
-    // Đăng ký service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
+    const acceptBtn = document.querySelector('.accept');
+    const rejectBtn = document.querySelector('.reject');
+    const messageBox = document.querySelector('.message');
+
+    let rejectSize = 1;
+    let phrases = [
+      "Anh không tha thứ thiệt hả? 😢",
+      "Đừng làm khó anh mà...",
+      "Anh sai rồi, tha cho anh đi 😭",
+      "Nếu em không tha thứ, anh buồn lắm...",
+      "Năn nỉ em đó... 💔"
+    ];
+    let index = 0;
+
+    acceptBtn.addEventListener('click', () => {
+      messageBox.textContent = "Cảm ơn em đã tha thứ! Anh hạnh phúc lắm ❤️";
+    });
+
+    rejectBtn.addEventListener('click', () => {
+      if (rejectSize > 0.3) {
+        rejectSize -= 0.1;
+        rejectBtn.style.transform = `scale(${rejectSize})`;
+      }
+      if (index < phrases.length) {
+        let p = document.createElement("p");
+        p.textContent = phrases[index];
+        messageBox.appendChild(p);
+        index++;
+      } else {
+        let p = document.createElement("p");
+        p.textContent = "Em không thể từ chối anh mãi đâu 😏";
+        messageBox.appendChild(p);
+      }
+    });
   </script>
 </body>
 </html>
