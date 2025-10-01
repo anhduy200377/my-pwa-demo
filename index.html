@@ -22,6 +22,7 @@
       border-radius: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       max-width: 400px;
+      min-height: 400px;
       position: relative;
       overflow: hidden;
     }
@@ -83,6 +84,7 @@
     const acceptBtn = document.querySelector('.accept');
     const rejectBtn = document.querySelector('.reject');
     const buttonsDiv = document.querySelector('.buttons');
+    const letterBox = document.querySelector('.letter');
     const messageBox = document.querySelector('.message');
 
     let phrases = [
@@ -101,24 +103,8 @@
       buttonsDiv.style.display = "none";
     });
 
-    // Hàm di chuyển nút "Không chấp nhận"
-    function moveRejectButton() {
-      const maxX = buttonsDiv.offsetWidth - rejectBtn.offsetWidth;
-      const maxY = buttonsDiv.offsetHeight - rejectBtn.offsetHeight;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-      rejectBtn.style.left = `${randomX}px`;
-      rejectBtn.style.top = `${randomY}px`;
-    }
-
-    // Khi hover/chạm → chạy trốn
-    rejectBtn.addEventListener('mouseenter', moveRejectButton);
-    rejectBtn.addEventListener('touchstart', moveRejectButton);
-
-    // Khi click → vừa chạy trốn vừa thu nhỏ dần + hiện text
+    // Khi bấm "Không chấp nhận"
     rejectBtn.addEventListener('click', () => {
-      moveRejectButton();
-
       // Thu nhỏ dần
       size -= 0.1;
       if (size > 0.3) {
@@ -126,6 +112,14 @@
       } else {
         rejectBtn.style.display = "none"; // biến mất nếu quá nhỏ
       }
+
+      // Di chuyển sang vị trí ngẫu nhiên trong hộp thư
+      const maxX = letterBox.offsetWidth - rejectBtn.offsetWidth;
+      const maxY = letterBox.offsetHeight - rejectBtn.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      rejectBtn.style.left = `${randomX}px`;
+      rejectBtn.style.top = `${randomY}px`;
 
       // Hiện dần lời năn nỉ
       if (index < phrases.length) {
